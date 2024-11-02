@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write-Only Board</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 1x;
+        }
+        h1 {
+            color: #333;
+        }
+        #board {
+            width: 90%;
+            max-width: 800px;
+            height: 400px;
+            border: 1px solid #333;
+            padding: 1px;
+            background-color: #ffffff;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .input-area {
+            margin-top: 2px;
+            display: flex;
+            width: 90%;
+            max-width: 600px;
+        }
+        .input-area input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .input-area button {
+            padding: 10px;
+            font-size: 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .input-area button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Write-Only Board</h1>
+<div id="board">
+    <!-- Content will appear here -->
+</div>
+
+<div class="input-area">
+    <input type="text" id="userInput" placeholder="Type something..." maxlength="200">
+    <button onclick="addText()">Add Text</button>
+</div>
+
+<script>
+    function addText() {
+        const board = document.getElementById("board");
+        const input = document.getElementById("userInput");
+
+        // Get the text from the input and append it to the board
+        const text = input.value.trim();
+        if (text) {
+            const p = document.createElement("p");
+            p.textContent = text;
+            board.appendChild(p);
+
+            // Clear the input field
+            input.value = "";
+
+            // Disable the last added text to make it uneditable
+            p.style.pointerEvents = "none";
+            p.style.userSelect = "none";
+        }
+    }
+</script>
+
+</body>
+</html>
