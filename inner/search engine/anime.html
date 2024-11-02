@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser Interface</title>
+    <style>
+        /* Previous styles remain the same */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        .animation-container {
+      position: fixed;
+      top: 40px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      margin-top: 50px;
+    }
+
+    /* Jerry's style */
+    .jerry {
+      position: absolute;
+      left: -100px; /* Start off-screen */
+      width: 40px; /* Adjust size */
+      animation: jerryRun 5s linear infinite;
+    }
+
+    /* Tom's style */
+    .tom {
+      position: absolute;
+      left: -200px; /* Start off-screen, a bit behind Jerry */
+      width: 100px; /* Adjust size */
+      animation: tomRun 5s linear infinite;
+      animation-delay: 0.3s; /* Small delay to stay behind Jerry */
+      padding: 0;
+      margin-top: 0;
+    }
+
+        @keyframes jerryRun {
+            0% { left: -100px; }
+            100% { left: 100vw; }
+        }
+
+        @keyframes tomRun {
+            0% { left: -200px; }
+            100% { left: 100vw; }
+        }
+
+        /* Loading Screen Styles */
+        .loading-screen {
+            position: fixed;
+            top: 48px;
+            left: 0;
+            width: 100%;
+            height: calc(100% - 48px);
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4285f4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        .loading-progress {
+            width: 200px;
+            height: 4px;
+            background-color: #f3f3f3;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: #4285f4;
+            animation: progress 10s linear forwards;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        .fade-out {
+            animation: fadeOut 0.5s forwards;
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; visibility: hidden; }
+        }
+
+        /* Navbar styles remain the same */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+            height: 48px;
+            z-index: 1001;
+        }
+
+        /* Rest of the previous styles remain the same */
+        .nav-buttons {
+            display: flex;
+            gap: 8px;
+            margin-right: 8px;
+            min-width: 100px;
+        }
+
+        .nav-button {
+            width: 28px;
+            height: 28px;
+            border: none;
+            background-color: transparent;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .nav-button:hover {
+            background-color: #e9ecef;
+        }
+
+        .search-container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 20px;
+            min-width: 400px;
+        }
+
+        .search-bar {
+            width: 100%;
+            height: 36px;
+            padding: 0 16px;
+            border: 1px solid #ddd;
+            border-radius: 24px;
+            font-size: 14px;
+            outline: none;
+            background-color: white;
+        }
+
+        .search-bar:hover {
+            box-shadow: 0 1px 6px rgba(32,33,36,0.28);
+            border-color: rgba(223,225,229,0);
+        }
+
+        .right-buttons {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            min-width: 100px;
+            justify-content: flex-end;
+        }
+
+        .icon-button {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background-color: transparent;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .icon-button:hover {
+            background-color: #e9ecef;
+        }
+
+        .profile-button {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #EA4335;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .navbar-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #f3f3f3;
+        }
+
+        .navbar-progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: #4285f4;
+            animation: progress 10s linear forwards;
+        }
+
+        @media (max-width: 768px) {
+            .search-container {
+                margin: 0 10px;
+                min-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="nav-buttons">
+            <button class="nav-button">←</button>
+            <button class="nav-button">→</button>
+            <button class="nav-button">↻</button>
+        </div>
+        
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="Search Google or type a URL">
+        </div>
+        
+        <div class="right-buttons">
+            <button class="icon-button">⋮</button>
+            <button class="profile-button">S</button>
+        </div>
+
+        <div class="navbar-progress">
+            <div class="navbar-progress-bar"></div>
+        </div>
+    </div>
+
+
+    <div class="animation-container">
+        <img src="jerry.png" alt="Jerry" class="jerry">
+        <img src="tommm.JPG" alt="Tom" class="tom">
+        
+    </div>
+
+    <div class="loading-screen">
+        <div class="loading-spinner"></div>
+        <div class="loading-progress">
+            <div class="progress-bar"></div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('load', function() {
+            const loadingScreen = document.querySelector('.loading-screen');
+            const navbarProgress = document.querySelector('.navbar-progress');
+            
+            setTimeout(() => {
+                loadingScreen.classList.add('fade-out');
+                navbarProgress.classList.add('fade-out');
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                    navbarProgress.style.display = 'none';
+                }, 500);
+            }, 10000);
+        });
+
+        // Search bar functionality
+        document.querySelector('.search-bar').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchQuery = this.value;
+                if (searchQuery) {
+                    if (searchQuery.includes('.') && !searchQuery.includes(' ')) {
+                        let url = searchQuery;
+                        if (!url.startsWith('http')) {
+                            url = 'https://' + url;
+                        }
+                        window.location.href = url;
+                    } else {
+                        window.location.href = `https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`;
+                    }
+                }
+            }
+        });
+
+        // Navigation buttons functionality
+        document.querySelector('.nav-buttons').addEventListener('click', function(e) {
+            if (e.target.classList.contains('nav-button')) {
+                const buttonText = e.target.textContent;
+                switch(buttonText) {
+                    case '←':
+                        history.back();
+                        break;
+                    case '→':
+                        history.forward();
+                        break;
+                    case '↻':
+                        location.reload();
+                        break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

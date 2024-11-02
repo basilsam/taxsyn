@@ -27,9 +27,6 @@ body {
     gap: 30px;
 }
 
-.search-container {
-    text-align: center;
-}
 
 .search-bar {
     margin-left: 300px;
@@ -65,7 +62,8 @@ body {
 
 .search-options {
     margin-top: 10px;
-    margin-left: 500px;
+    margin-left: 650px;
+
 }
 
 .app-grid {
@@ -74,10 +72,10 @@ body {
     gap: 50px;
     width: 80%;
     padding: 20px;
+    margin-top: 50px;
     
    
 }
-
 
 .app-icon {
     display: flex;
@@ -115,7 +113,7 @@ body {
 
 .app-icon span {
     font-size: 14px;
-    font-weight: 500;
+    font-weight:bold
 }
 
 .page {
