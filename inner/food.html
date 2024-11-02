@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Menu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #171717;
+            color: white;
+            min-height: 100vh;
+            padding: 1.5rem;
+        }
+
+        .container {
+            max-width: 64rem;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: #171717;
+            border: 1px solid #404040;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .title {
+            font-size: 2.25rem;
+            font-weight: bold;
+            color: #facc15;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fb923c;
+            border-bottom: 2px solid #fb923c;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .menu-item {
+            background-color: #262626;
+            border: 1px solid #404040;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .item-info h3 {
+            color: white;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .item-info p {
+            color: #fb923c;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            background-color: #262626;
+            border: 1px solid #404040;
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn:hover {
+            background-color: #404040;
+        }
+
+        .quantity {
+            width: 2rem;
+            text-align: center;
+        }
+
+        .total-section {
+            border-top: 1px solid #404040;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #facc15;
+        }
+
+        .pay-btn {
+            background-color: #facc15;
+            color: #171717;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.375rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pay-btn:hover {
+            background-color: #fb923c;
+        }
+
+        .pay-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .alert {
+            background-color: #22c55e;
+            color: white;
+            border: 1px solid #16a34a;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <h1 class="title">FOOD MENU</h1>
+            </div>
+            <div id="menu-content"></div>
+            <div class="total-section">
+                <span class="total">Total: $<span id="total-amount">0.00</span></span>
+                <button id="pay-button" class="pay-btn" disabled>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"/>
+                        <circle cx="20" cy="21" r="1"/>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                    </svg>
+                    Pay Now
+                </button>
+            </div>
+        </div>
+        <div id="success-alert" class="alert hidden">
+            Thank you for your order!
+        </div>
+    </div>
+
+    <script>
+        const menuItems = {
+            mainCourse: [
+                { id: 1, name: 'Cheeseburger', price: 34 },
+                { id: 2, name: 'Cheese Sandwich', price: 22 }
+            ],
+            appetizers: [
+                { id: 3, name: 'Fruit Salad', price: 13 },
+                { id: 4, name: 'Cocktail', price: 12 }
+            ],
+            beverages: [
+                { id: 5, name: 'Milk Shake', price: 3 },
+                { id: 6, name: 'Iced Tea', price: 2 }
+            ]
+        };
+
+        const cart = {};
+
+        function createMenuSection(title, items) {
+            return `
+                <div class="section">
+                    <h2 class="section-title">${title}</h2>
+                    <div class="grid">
+                        ${items.map(item => `
+                            <div class="menu-item">
+                                <div class="item-info">
+                                    <h3>${item.name}</h3>
+                                    <p>$${item.price}</p>
+                                </div>
+                                <div class="quantity-controls">
+                                    <button class="btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                                    <span class="quantity" id="qty-${item.id}">0</span>
+                                    <button class="btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateQuantity(itemId, change) {
+            const currentQty = cart[itemId] || 0;
+            const newQty = Math.max(0, currentQty + change);
+            
+            if (newQty === 0) {
+                delete cart[itemId];
+            } else {
+                cart[itemId] = newQty;
+            }
+            
+            document.getElementById(`qty-${itemId}`).textContent = newQty;
+            updateTotal();
+        }
+
+        function updateTotal() {
+            const total = Object.entries(cart).reduce((sum, [itemId, quantity]) => {
+                const item = [...menuItems.mainCourse, ...menuItems.appetizers, ...menuItems.beverages]
+                    .find(item => item.id === Number(itemId));
+                return sum + (item ? item.price * quantity : 0);
+            }, 0);
+
+            document.getElementById('total-amount').textContent = total.toFixed(2);
+            document.getElementById('pay-button').disabled = total === 0;
+        }
+
+        function handlePayment() {
+            const total = Object.entries(cart).reduce((sum, [itemId, quantity]) => {
+                const item = [...menuItems.mainCourse, ...menuItems.appetizers, ...menuItems.beverages]
+                    .find(item => item.id === Number(itemId));
+                return sum + (item ? item.price * quantity : 0);
+            }, 0);
+
+            if (total > 0) {
+                const alert = document.getElementById('success-alert');
+                alert.textContent = `Thank you for your order! Total paid: $${total.toFixed(2)}`;
+                alert.classList.remove('hidden');
+
+               
+                setTimeout(() => {
+                    window.location.href = "fatty.html";
+                }, 4000);
+            }
+        }
+
+    
+        document.getElementById('menu-content').innerHTML = `
+            ${createMenuSection('Main Course', menuItems.mainCourse)}
+            ${createMenuSection('Appetizers', menuItems.appetizers)}
+            ${createMenuSection('Beverages', menuItems.beverages)}
+        `;
+
+  
+        document.getElementById('pay-button').addEventListener('click', handlePayment);
+    </script>
+</body>
+</html>
