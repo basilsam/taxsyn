@@ -9,27 +9,39 @@
 <body>
     <div class="page home-page" id="homePage">
         <div class="main-container">
-            <div class="search-bar">
-                <input type="text" placeholder="Search...">
-                <a href="https://www.google.com"><img src="search.png" alt="Search Icon"></a>
+            <div class="search-container">
+                <div class="search-bar">
+                    <input type="text" id="searchQuery" placeholder="Search...">
+                    <a onclick="performSearch()"><img src="search.png" alt="Search Icon"></a>
+                </div>
+                <div class="search-options">
+                    <label for="searchEngine">select serch engine</label>
+                    <select id="searchEngine">
+                        <option value="https://www.google.com/search?q=">Google</option>
+                        <option value="https://www.bing.com/search?q=">Bing</option>
+                        <option value="https://duckduckgo.com/?q=">DuckDuckGo</option>
+                    </select>
+                </div>
             </div>
             
+        
+
             <div class="app-grid">
                 <div class="app-icon">
                     <img src="Google_Chrome-Logo.wine.png" alt="chrome">
                     <span>Google</span>
                 </div>
                 <div class="app-icon">
-                    <img src="playstore.png" alt="Play Store">
+                    <img src="playstore.svg" alt="Play Store">
                     <span>Play Store</span>
                 </div>
                 <div class="app-icon">
-                    <img src="myjio.png" alt="MyJio">
-                    <span>MyJio</span>
+                    <img src="tinker.PNG" alt="MyJio">
+                    <span>Tinkerhub</span>
                 </div>
                 <div class="app-icon">
-                    <img src="jio.png" alt="Jio">
-                    <span>Jio</span>
+                    <img src="Spotify-Icon-Logo.wine.png" alt="Jio">
+                    <span>spotify</span>
                 </div>
             </div>
         </div>
@@ -44,74 +56,61 @@
         <div class="home-icon"></div>
     </div>
 
-    <div class="page platform-page" id="platformPage"></div>
+    <div class="page platform-page" id="platformPage">
+        <div class="app-grid">
+            <div class="app-icon">
+                <img src="Google_Chrome-Logo.wine.png" alt="chrome">
+                <span>Google</span>
+            </div>
+            <div class="app-icon">
+                <img src="playstore.svg" alt="Play Store">
+                <span>Play Store</span>
+            </div>
+            <div class="app-icon">
+                <img src="tinker.PNG" alt="MyJio">
+                <span>Tinkerhub</span>
+            </div>
+            <div class="app-icon">
+                <img src="Spotify-Icon-Logo.wine.png" alt="Jio">
+                <span>spotify</span>  
+            </div>
+            <div class="app-icon">
+                <img src="Google_Chrome-Logo.wine.png" alt="chrome">
+                <span>Google</span>
+            </div>
+            <div class="app-icon">
+                <img src="playstore.svg" alt="Play Store">
+                <span>Play Store</span>
+            </div>
+            <div class="app-icon">
+                <img src="tinker.PNG" alt="MyJio">
+                <span>Tinkerhub</span>
+            </div>
+            <div class="app-icon">
+                <img src="Spotify-Icon-Logo.wine.png" alt="Jio">
+                <span>spotify</span>
+            </div>
+            <div class="app-icon">
+                <img src="Google_Chrome-Logo.wine.png" alt="chrome">
+                <span>Google</span>
+            </div>
+            <div class="app-icon">
+                <img src="playstore.svg" alt="Play Store">
+                <span>Play Store</span>
+            </div>
+            <div class="app-icon">
+                <img src="tinker.PNG" alt="MyJio">
+                <span>Tinkerhub</span>
+            </div>
+            <div class="app-icon">
+                <img src="Spotify-Icon-Logo.wine.png" alt="Jio">
+                <span>spotify</span>
+            </div>
+        </div>
+    </div>
 
-    <script>
-        const searchBar = document.querySelector('.search-bar input');
-        const homePage = document.getElementById('homePage');
-        const platformPage = document.getElementById('platformPage');
-        const swipeHandle = document.getElementById('swipeHandle');
-        const homeButton = document.getElementById('homeButton');
-        let isInPlatform = false;
-
-        searchBar.addEventListener('focus', () => {
-            searchBar.placeholder = '';
-        });
-
-        searchBar.addEventListener('blur', () => {
-            searchBar.placeholder = 'Search...';
-        });
-
-        swipeHandle.addEventListener('click', () => {
-            if (!isInPlatform) {
-                platformPage.style.transform = 'translateY(0)';
-                homePage.style.transform = 'translateY(-30%)';
-                homeButton.classList.add('visible');
-                isInPlatform = true;
-            }
-        });
-
-        homeButton.addEventListener('click', () => {
-            if (isInPlatform) {
-                platformPage.style.transform = 'translateY(100%)';
-                homePage.style.transform = 'translateY(0)';
-                homeButton.classList.remove('visible');
-                isInPlatform = false;
-            }
-        });
-
-        let startY = 0;
-        let currentY = 0;
-
-        swipeHandle.addEventListener('touchstart', (e) => {
-            startY = e.touches[0].clientY;
-            currentY = startY;
-        });
-
-        swipeHandle.addEventListener('touchmove', (e) => {
-            currentY = e.touches[0].clientY;
-            const diff = startY - currentY;
-            
-            if (!isInPlatform && diff > 0) {
-                const percentage = Math.min(100, (diff / 200) * 100);
-                platformPage.style.transform = `translateY(${100 - percentage}%)`;
-                homePage.style.transform = `translateY(-${percentage * 0.3}%)`;
-            }
-        });
-
-        swipeHandle.addEventListener('touchend', () => {
-            const diff = startY - currentY;
-            
-            if (!isInPlatform && diff > 50) {
-                platformPage.style.transform = 'translateY(0)';
-                homePage.style.transform = 'translateY(-30%)';
-                homeButton.classList.add('visible');
-                isInPlatform = true;
-            } else if (!isInPlatform) {
-                platformPage.style.transform = 'translateY(100%)';
-                homePage.style.transform = 'translateY(0)';
-            }
-        });
+    <script src="script.js">
+   
     </script>
 </body>
 </html>
