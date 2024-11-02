@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tom and Jerry Animation</title>
+  <style>
+    /* Basic styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin-top: 50;
+      padding: 10;
+      overflow-x: hidden;
+    }
+    
+    .animation-container {
+      position: fixed;
+      top: 40px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Jerry's style */
+    .jerry {
+      position: absolute;
+      left: -100px; /* Start off-screen */
+      width: 40px; /* Adjust size */
+      animation: jerryRun 5s linear infinite;
+    }
+
+    /* Tom's style */
+    .tom {
+      position: absolute;
+      left: -200px; /* Start off-screen, a bit behind Jerry */
+      width: 100px; /* Adjust size */
+      animation: tomRun 5s linear infinite;
+      animation-delay: 0.2s; /* Small delay to stay behind Jerry */
+      padding: 0;
+      margin-top: 0;
+    }
+
+    /* Jerry's running animation */
+    @keyframes jerryRun {
+      0% { left: -100px; }
+      100% { left: 100vw; }
+    }
+
+    /* Tom's running animation */
+    @keyframes tomRun {
+      0% { left: -200px; }
+      100% { left: 100vw; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="animation-container">
+  <!-- Replace these src values with actual URLs or local image paths -->
+  <img src="jerry.png" alt="Jerry" class="jerry">
+  <img src="tom.png" alt="Tom" class="tom">
+</div>
+
+</body>
+</html>
