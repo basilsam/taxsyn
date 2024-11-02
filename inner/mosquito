@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hit the Mosquito</title>
+    <style>
+        body, html {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            overflow: hidden;
+        }
+
+        .game-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            border: 2px solid #333;
+            overflow: hidden;
+            background-color: #e0ffe0;
+        }
+
+        .mosquito {
+            width: 50px;
+            height: 50px;
+            background-image: url('mosq.png');
+            background-size: cover;
+            position: absolute;
+            cursor: pointer;
+        }
+
+        .score, .lives, .message {
+            font-size: 1.5em;
+            margin: 10px;
+        }
+
+        .message {
+            color: black;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-style: serif;
+        }
+
+        /* Popup styling */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: white;
+            border: 2px solid #333;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .popup img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container" id="gameContainer">
+        <div class="mosquito" id="mosquito"></div>
+        <div class="score">Score: <span id="score">0</span></div>
+        <div class="lives">Lives: <span id="lives">3</span></div>
+        <div class="message" id="message"></div>
+    </div>
+
+    <!-- Popup for game end -->
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <h2 id="endMessage">Game Over! You Lost!</h2>
+        <p>Your Score: <span id="finalScore"></span></p>
+        <img src="mosquito2.png" alt="Mosquito">
+        <button onclick="restartGame()">Play Again</button>
+    </div>
+
+    <script>
+        const mosquito = document.getElementById("mosquito");
+        const scoreDisplay = document.getElementById("score");
+        const livesDisplay = document.getElementById("lives");
+        const messageDisplay = document.getElementById("message");
+        const popup = document.getElementById("popup");
+        const overlay = document.getElementById("overlay");
+        const finalScoreDisplay = document.getElementById("finalScore");
+
+        let score = 0;
+        let lives = 3;
+        let gameInterval;
+        let messageInterval;
+
+        // Messages to display at intervals
+        const messages = [
+            "Are you tired 🙃?",
+            "You are too lazy, I think you're dumb because you can't see meee!",
+            "Hellooo...you fool, can you see me? Are you blind?",
+            "Catch me if you can!",
+            "I’m faster than you!",
+            "Too slow! Try harder!",
+            "Oops! Missed again?"
+        ];
+
+        // Move mosquito to random position
+        function moveMosquito() {
+            const gameContainer = document.getElementById("gameContainer");
+            const maxX = gameContainer.clientWidth - 50;
+            const maxY = gameContainer.clientHeight - 50;
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+
+            mosquito.style.left = `${randomX}px`;
+            mosquito.style.top = `${randomY}px`;
+        }
+
+        // Function to start the game
+        function startGame() {
+            moveMosquito();
+            mosquito.addEventListener("click", hitMosquito);
+            gameInterval = setInterval(moveMosquito, 500); // Move every 0.5 seconds
+
+            // Start displaying random taunting messages every 3 seconds
+            messageInterval = setInterval(() => {
+                // Select a random message from the array
+                const randomIndex = Math.floor(Math.random() * messages.length);
+                messageDisplay.textContent = messages[randomIndex];
+
+                // Clear the message after 1.5 seconds
+                setTimeout(() => { messageDisplay.textContent = ""; }, 1500);
+            }, 3000);
+        }
+
+        // Function to handle mosquito click
+        function hitMosquito() {
+            score += 10;
+            scoreDisplay.textContent = score;
+            lives -= 1;
+            livesDisplay.textContent = lives;
+
+            if (lives <= 0) {
+                endGame();
+            } else {
+                moveMosquito();
+            }
+        }
+
+        // Function to end game and display popup
+        function endGame() {
+            clearInterval(gameInterval);
+            clearInterval(messageInterval);
+            finalScoreDisplay.textContent = score;
+            overlay.style.display = "block";
+            popup.style.display = "block";
+        }
+
+        // Restart game function
+        function restartGame() {
+            score = 0;
+            lives = 3;
+            scoreDisplay.textContent = score;
+            livesDisplay.textContent = lives;
+            overlay.style.display = "none";
+            popup.style.display = "none";
+            startGame();
+        }
+
+        // Start the game initially
+        startGame();
+    </script>
+</body>
+</html>
