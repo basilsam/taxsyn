@@ -1,0 +1,96 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #1a237e, #0d47a1);
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* Search Bar Styles */
+.search-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    position: relative;
+}
+
+.search-bar {
+    width: 100%;
+    padding: 15px 20px;
+    border-radius: 30px;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    font-size: 16px;
+    outline: none;
+}
+
+/* Apps Grid Styles */
+.apps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 20px;
+    max-width: 600px;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.app-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    padding: 15px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    transition: transform 0.2s;
+}
+
+.app-icon:hover {
+    transform: translateY(-5px);
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.google-icon {
+    background: white;
+}
+
+.playstore-icon {
+    background: #ff4444;
+}
+
+.myjio-icon {
+    background: #2196f3;
+}
+
+.jio-icon {
+    background: #2196f3;
+}
+
+.app-name {
+    font-size: 14px;
+    text-align: center;
+    margin-top: 5px;
+}

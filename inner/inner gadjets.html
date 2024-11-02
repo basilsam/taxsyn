@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two Page System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        /* First Page Styles */
+        .first-page {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background: #1a237e;
+            z-index: 2;
+        }
+
+        .background-image {
+            width: 100%;
+            height: calc(100% - 100px);
+            object-fit: cover;
+        }
+
+        .swipe-panel {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: #fff;
+            border-radius: 20px 20px 0 0;
+            transform: translateY(70px);
+            transition: transform 0.3s ease-out;
+            touch-action: none;
+            user-select: none;
+            z-index: 3;
+        }
+
+        .handle {
+            width: 50px;
+            height: 4px;
+            background: #ccc;
+            border-radius: 2px;
+            margin: 10px auto;
+        }
+
+        .nav-items {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .nav-item {
+            text-align: center;
+            color: #333;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            background: #1a237e;
+            border-radius: 50%;
+        }
+
+        /* Second Page Styles */
+        .second-page {
+            position: fixed;
+            top: 100vh; /* Start below the viewport */
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #fff;
+            z-index: 1;
+            transition: top 0.5s ease-out;
+        }
+
+        .second-page.active {
+            top: 0;
+        }
+
+        .header {
+            background: #1a237e;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .card {
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- First Page -->
+    <div class="first-page">
+        <img src="/api/placeholder/400/320" alt="Background" class="background-image">
+        <div class="swipe-panel" id="swipePanel">
+            <div class="handle"></div>
+            <nav class="nav-items">
+                <a href="#" class="nav-item">
+                    <div class="nav-icon"></div>
+                    <span>Home</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <div class="nav-icon"></div>
+                    <span>Search</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <div class="nav-icon"></div>
+                    <span>Profile</span>
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Second Page -->
+    <div class="second-page" id="secondPage">
+        <div class="header">
+            <h1>New Page</h1>
+        </div>
+        <div class="content">
+            <input type="text" class="search-bar" placeholder="Search...">
+            <div class="card">
+                <h3>Welcome to the New Page</h3>
+                <p>This is a completely fresh start with new functionality.</p>
+            </div>
+            <div class="card">
+                <h3>Featured Content</h3>
+                <p>Explore our latest updates and features.</p>
+            </div>
+            <div class="card">
+                <h3>Getting Started</h3>
+                <p>Learn how to make the most of our platform.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const swipePanel = document.getElementById('swipePanel');
+        const secondPage = document.getElementById('secondPage');
+        let startY = 0;
+        let currentY = 0;
+        let initialTransform = 70;
+        let isTransitioning = false;
+
+        function handleTouchStart(e) {
+            if (isTransitioning) return;
+            startY = e.touches[0].clientY;
+            currentY = startY;
+            swipePanel.style.transition = 'none';
+        }
+
+        function handleTouchMove(e) {
+            if (isTransitioning) return;
+            currentY = e.touches[0].clientY;
+            const diff = currentY - startY;
+            
+            if (diff < 0) { // Swiping up
+                const newTransform = Math.max(-100, diff + initialTransform);
+                swipePanel.style.transform = `translateY(${newTransform}px)`;
+            } else if (diff > 0) { // Swiping down
+                const newTransform = Math.min(70, diff + initialTransform);
+                swipePanel.style.transform = `translateY(${newTransform}px)`;
+            }
+        }
+
+        function handleTouchEnd() {
+            if (isTransitioning) return;
+            swipePanel.style.transition = 'transform 0.3s ease-out';
+            const diff = currentY - startY;
+            
+            if (diff < -50) { // Significant upward swipe
+                isTransitioning = true;
+                secondPage.classList.add('active');
+                // Remove event listeners after transition
+                swipePanel.removeEventListener('touchstart', handleTouchStart);
+                swipePanel.removeEventListener('touchmove', handleTouchMove);
+                swipePanel.removeEventListener('touchend', handleTouchEnd);
+            } else if (diff < -20) {
+                swipePanel.style.transform = 'translateY(0)';
+                initialTransform = 0;
+            } else {
+                swipePanel.style.transform = 'translateY(70px)';
+                initialTransform = 70;
+            }
+        }
+
+        swipePanel.addEventListener('touchstart', handleTouchStart);
+        swipePanel.addEventListener('touchmove', handleTouchMove);
+        swipePanel.addEventListener('touchend', handleTouchEnd);
+    </script>
+</body>
+</html>
