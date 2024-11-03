@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treasure Hunt Game</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #e0f7fa;
+        }
+        #gameArea {
+            width: 400px;
+            height: 400px;
+            background-color: #4caf50;
+            position: relative;
+            overflow: hidden;
+        }
+        .cell {
+            width: 20px;
+            height: 20px;
+            border: 1px solid #fff;
+            position: absolute;
+        }
+        .treasure {
+            background-image: url('box.png'); /* URL of the treasure image */
+            background-size: cover;
+        }
+        #message {
+            margin-top: 20px;
+            text-align: center;
+        }
+        #restartButton {
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="gameArea"></div>
+<div id="message"></div>
+<button id="restartButton">Play Again</button>
+
+<script>
+    const gameArea = document.getElementById('gameArea');
+    const message = document.getElementById('message');
+    const restartButton = document.getElementById('restartButton');
+    let chances;
+    let treasureX;
+    let treasureY;
+
+    function startGame() {
+        chances = 3;
+        message.innerText = `You have ${chances} chances to find the treasure.`;
+        restartButton.style.display = 'none';
+        setTreasureLocation();
+        createCells();
+    }
+
+    function setTreasureLocation() {
+        treasureX = Math.floor(Math.random() * 20) * 20;
+        treasureY = Math.floor(Math.random() * 20) * 20;
+    }
+
+    function createCells() {
+        gameArea.innerHTML = ''; // Clear previous cells
+        for (let i = 0; i < 20; i++) {
+            for (let j = 0; j < 20; j++) {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                cell.style.left = `${i * 20}px`;
+                cell.style.top = `${j * 20}px`;
+                cell.addEventListener('click', () => {
+                    makeGuess(i * 20, j * 20);
+                });
+                gameArea.appendChild(cell);
+            }
+        }
+    }
+
+    function revealTreasure() {
+        // Locate and reveal the cell where the treasure is hidden
+        const treasureCell = document.querySelector(`.cell[style*="left: ${treasureX}px"][style*="top: ${treasureY}px"]`);
+        treasureCell.classList.add('treasure'); // Add treasure image
+    }
+
+    function makeGuess(x, y) {
+        if (chances > 0) {
+            chances--;
+            if (x === treasureX && y === treasureY) {
+                message.innerText = 'Congratulations! You found the treasure!';
+                revealTreasure();
+                restartButton.style.display = 'block';
+            } else {
+                message.innerText = `Wrong guess! You have ${chances} chances left.`;
+                if (chances === 0) {
+                    message.innerText += ` Game over! The treasure was hidden at (${treasureX / 20}, ${treasureY / 20}).`;
+                    revealTreasure();
+                    restartButton.style.display = 'block';
+                }
+            }
+        }
+    }
+
+    restartButton.addEventListener('click', startGame);
+    startGame();
+</script>
+
+</body>
+</html>
