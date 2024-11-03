@@ -1,6 +1,6 @@
 <img width="1280" alt="readme-banner" src="https://github.com/user-attachments/assets/35332e92-44cb-425b-9dff-27bcf1023c6c">
 
-#  🎯
+#  virtual mobile🎯
 
 
 ## Basic Details
@@ -86,9 +86,9 @@ For Hardware:
 [Add any extra demo materials/links]
 
 ## Team Contributions
-- [Name 1]: [Specific contributions]
-- [Name 2]: [Specific contributions]
-- [Name 3]: [Specific contributions]
+- Basil sam : [Specific contributions]
+- Nandana j s: [Specific contributions]
+- Hannath c shabeer: [Specific contributions]
 
 ---
 Made with ❤️ at TinkerHub Useless Projects 

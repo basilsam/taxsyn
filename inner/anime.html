@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browser Interface</title>
     <style>
-       
+      
         * {
             margin: 0;
             padding: 0;
@@ -14,36 +14,34 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-            overflow-x: hidden; 
+            overflow-x: hidden;
+        }
+        
+        .animation-container {   
+            position: fixed;
+            top: 40px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            margin-top: 50px;
+        }
 
-        .animation-container {
-      position: fixed;
-      top: 40px;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      margin-top: 50px;
-    }
+        .jerry {
+            position: absolute;
+            left: -100px; 
+            width: 40px; 
+            animation: jerryRun 5s linear infinite;
+        }
 
-   
-    .jerry {
-      position: absolute;
-      left: -100px; 
-      width: 40px; 
-      animation: jerryRun 5s linear infinite;
-    }
+        .tom {
+            position: absolute;
+            left: -200px;
+            width: 100px;
+            animation: tomRun 5s linear infinite;
+            animation-delay: 0.3s;
+        }
 
-    /* Tom's style */
-    .tom {
-      position: absolute;
-      left: -200px; /* Start off-screen, a bit behind Jerry */
-      width: 100px; /* Adjust size */
-      animation: tomRun 5s linear infinite;
-      animation-delay: 0.3s; /* Small delay to stay behind Jerry */
-      padding: 0;
-      margin-top: 0;
-    }
-
+       
         @keyframes jerryRun {
             0% { left: -100px; }
             100% { left: 100vw; }
@@ -54,66 +52,18 @@
             100% { left: 100vw; }
         }
 
-        /* Loading Screen Styles */
-        .loading-screen {
+
+        .search-hint {
+            margin-top: 20px;
             position: fixed;
-            top: 48px;
-            left: 0;
+            top: 200px;
             width: 100%;
-            height: calc(100% - 48px);
-            background-color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
+            text-align: center;
+            font-size: 18px;
+            color: #554b4bf5;
+            font-weight: bold;
         }
 
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #4285f4;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-
-        .loading-progress {
-            width: 200px;
-            height: 4px;
-            background-color: #f3f3f3;
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            width: 0%;
-            height: 100%;
-            background-color: #4285f4;
-            animation: progress 10s linear forwards;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes progress {
-            0% { width: 0%; }
-            100% { width: 100%; }
-        }
-
-        .fade-out {
-            animation: fadeOut 0.5s forwards;
-        }
-
-        @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; visibility: hidden; }
-        }
-
-        
         .navbar {
             position: fixed;
             top: 0;
@@ -150,89 +100,20 @@
         .nav-button:hover {
             background-color: #e9ecef;
         }
-
-        .search-container {
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 20px;
-            min-width: 400px;
-        }
-
-        .search-bar {
-            width: 100%;
-            height: 36px;
-            padding: 0 16px;
-            border: 1px solid #ddd;
-            border-radius: 24px;
-            font-size: 14px;
-            outline: none;
-            background-color: white;
-        }
-
-        .search-bar:hover {
-            box-shadow: 0 1px 6px rgba(32,33,36,0.28);
-            border-color: rgba(223,225,229,0);
-        }
-
-        .right-buttons {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            min-width: 100px;
-            justify-content: flex-end;
-        }
-
-        .icon-button {
-            width: 36px;
-            height: 36px;
+        .home-button {
+            margin-top: 100px;
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #333;
+            color: #ffffff;
             border: none;
-            background-color: transparent;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-radius: 5px;
             cursor: pointer;
         }
-
-        .icon-button:hover {
-            background-color: #e9ecef;
+        .home-button:hover {
+            background-color: #555;
         }
-
-        .profile-button {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background-color: #EA4335;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .navbar-progress {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: #f3f3f3;
-        }
-
-        .navbar-progress-bar {
-            width: 0%;
-            height: 100%;
-            background-color: #4285f4;
-            animation: progress 10s linear forwards;
-        }
-
-        @media (max-width: 768px) {
-            .search-container {
-                margin: 0 10px;
-                min-width: 200px;
-            }
-        }
+    
     </style>
 </head>
 <body>
@@ -241,6 +122,8 @@
             <button class="nav-button">←</button>
             <button class="nav-button">→</button>
             <button class="nav-button">↻</button>
+           
+            <button class="nav-button" id="home-button">🏠</button>
         </div>
         
         <div class="search-container">
@@ -257,18 +140,20 @@
         </div>
     </div>
 
-
     <div class="animation-container">
         <img src="jerry.png" alt="Jerry" class="jerry">
         <img src="tommm.JPG" alt="Tom" class="tom">
-        
+    </div>
+
+
+    <div class="search-hint">
+        <h1>If you want to search, just go to Google🤪!!!</h1>
+        <h4 style="margin-top: 20px;"><a href="error.html">https//:www.google.com</a></h4>
+        <button class="home-button" onclick="goHome()">Home</button>
     </div>
 
     <div class="loading-screen">
-        <div class="loading-spinner"></div>
-        <div class="loading-progress">
-            <div class="progress-bar"></div>
-        </div>
+    
     </div>
 
     <script>
@@ -303,7 +188,6 @@
             }
         });
 
-        
         document.querySelector('.nav-buttons').addEventListener('click', function(e) {
             if (e.target.classList.contains('nav-button')) {
                 const buttonText = e.target.textContent;
@@ -320,6 +204,16 @@
                 }
             }
         });
+
+     
+        document.getElementById('home-button').addEventListener('click', function() {
+            window.location.href = 'homepage.html'; 
+        });
+          
+    function goHome() {
+        window.location.href = "new.html";
+    }
+
     </script>
 </body>
 </html>

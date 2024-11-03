@@ -8,7 +8,7 @@ body {
     background-image: url('backgroung1.png');
     background-size: cover;
     background-position: center;
-    height: 100vh;
+    min-height:100vh;
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
