@@ -1,6 +1,6 @@
 <img width="1280" alt="readme-banner" src="https://github.com/user-attachments/assets/35332e92-44cb-425b-9dff-27bcf1023c6c">
 
-# [Project Name] 🎯
+#  🎯
 
 
 ## Basic Details
@@ -16,10 +16,10 @@
 Our project is a virtual mobile phone where you can do some crazy things.In this you can search anything ,play games and can see the date and time but all these comes with a twist.You will definitely have a fun time using this.
 
 ### The Problem (that doesn't exist)
-
+using mobile phones often leads to depression these days.
 
 ### The Solution (that nobody asked for)
-[How are you solving it? Keep it fun!]
+as a solution using this  virtual mobile phone and doing absurd things makes users happy and enthusiastic therefore preventing depression. 
 
 ## Technical Details
 ### Technologies/Components Used
@@ -56,8 +56,7 @@ For Software:
 *Add caption explaining what this shows*
 
 # Diagrams
-![Workflow](Add your workflow/architecture diagram here)
-*Add caption explaining your workflow*
+
 
 For Hardware:
 
