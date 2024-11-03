@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --primary-color: #1DB954;
+            --bg-dark: #121212;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B3B3B3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            background-color: var(--bg-dark);
+            padding: 10px 0;
+        }
+
+        .navbar a {
+            color: var(--text-primary);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .playlist-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .playlist-cover {
+            width: 232px;
+            height: 232px;
+            border-radius: 50%;
+            overflow: hidden;
+            transition: transform 0.5s;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .playlist-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .playlist-cover:hover img {
+            transform: scale(1.1); /* Zoom on hover */
+        }
+
+        .playlist-info h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .playlist-info p {
+            color: var(--text-secondary);
+        }
+
+        .controls {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            align-items: center;
+            justify-content: center; /* Center align */
+        }
+
+        .control-button {
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .control-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(29, 185, 84, 0.5);
+        }
+
+        .dancing {
+            animation: dance 0.5s infinite alternate;
+        }
+
+        @keyframes dance {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+
+        .songs-list {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .songs-list th {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid #333;
+            color: var(--text-secondary);
+        }
+
+        .songs-list td {
+            padding: 10px;
+            border-bottom: 1px solid #333;
+        }
+
+        .song-row {
+            cursor: pointer;
+        }
+
+        .song-row:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .player-controls {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #181818;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .progress-bar {
+            width: 100%;
+            max-width: 400px;
+            height: 4px;
+            background-color: #333;
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress {
+            width: 0;
+            height: 100%;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+            transition: width 0.1s linear;
+        }
+
+        .middle-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px 0; /* Space above and below */
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="new.html">Home</a>
+    </div>
+
+    <div class="container">
+        <div class="playlist-header">
+            <div class="playlist-cover">
+                <img src="music.jpg" alt="Playlist Cover">
+            </div>
+            <div class="playlist-info">
+                <h1>Music Collection</h1>
+                <p>Created by User • 48 songs, 3 hr 33 min</p>
+            </div>
+        </div>
+
+        <!-- Controls below the image -->
+        <div class="controls">
+            <button class="control-button" id="playButton1">
+                <svg id="playIcon1" width="24" height="24" viewBox="0 0 24 24" fill="white">
+                    <path d="M8 5v14l11-7z"/> <!-- Play icon -->
+                </svg>
+            </button>
+            <div class="progress-bar">
+                <div class="progress" id="progress1"></div>
+            </div>
+        </div>
+
+        <table class="songs-list">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Album</th>
+                    <th>Date added</th>
+                    <th>Duration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="song-row">
+                    <td>1</td>
+                    <td>uire</td>
+                    <td>Music Collection</td>
+                    <td>jan 31, 2018</td>
+                    <td>3:45</td>
+                </tr>
+                <tr class="song-row">
+                    <td>2</td>
+                    <td>janco ram </td>
+                    <td>Music Collection</td>
+                    <td>Aug 15, 2025</td>
+                    <td>3:45</td>
+                </tr>        <tr class="song-row">
+                    <td>3</td>
+                    <td>gods own country</td>
+                    <td>Music Collection</td>
+                    <td>Dec 30, 2028</td>
+                    <td>3:45</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="player-controls">
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+
+    <script>
+        // Music Playback Simulation
+        const playButton1 = document.getElementById('playButton1');   
+        const playIcon1 = document.getElementById('playIcon1');
+        const progress1 = document.getElementById('progress1');
+     
+        let isPlaying1 = false;
+        let currentTime1 = 0;
+        const duration = 210; // Duration in seconds (3:30)
+
+        playButton1.addEventListener('click', () => {
+            isPlaying1 = !isPlaying1;
+
+            // Toggle play and pause icons
+            if (isPlaying1) {
+                playIcon1.innerHTML = '<path d="M6 19L19 12L6 5v14z"/> '; // Change to pause icon
+                playButton1.classList.add('dancing');
+                playMusic(1);
+            } else {
+                playIcon1.innerHTML = '<path d="M8 5v14l11-7z"/> '; // Change to play icon
+                playButton1.classList.remove('dancing');
+                stopMusic(1);
+            }
+        });
+
+        function playMusic(buttonNumber) {
+            // Simulate music playing
+            const interval = setInterval(() => {
+                if (currentTime1 < duration && isPlaying1) {
+                    currentTime1++;
+                    updateProgressBar(progress1, currentTime1);
+                } else {
+                    clearInterval(interval);
+                    isPlaying1 = false;
+                    playIcon1.innerHTML = '<path d="M8 5v14l11-7z"/> '; // Reset to play icon
+                    playButton1.classList.remove('dancing');
+                }
+            }, 1000); // Update every second
+        }
+
+        function stopMusic(buttonNumber) {
+            currentTime1 = 0;
+            progress1.style.width = '0%';
+        }
+
+        function updateProgressBar(progressElement, currentTime) {
+            const percent = (currentTime / duration) * 100;
+            progressElement.style.width = `${percent}%`;
+        }
+    </script>
+</body>
+</html>

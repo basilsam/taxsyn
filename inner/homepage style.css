@@ -124,7 +124,7 @@ body {
 }
 
 .platform-page {
-    background: #fff;
+    background: black; background-color: lightslategrey;
     transform: translateY(100%);
     z-index: 2;
 }
