@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog Clock with Circular Text Border</title>
+    <style>  
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+      
+        .time-border {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1em;
+            color: #333;
+            text-align: center;
+            font-weight: bold;
+            transform: rotate(0deg);
+        }
+
+        .clock-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            background-color: #ffffff;
+            border: 8px solid #000000;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+      
+        .clock-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background-color: #0073e6;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom;
+            transform: translateX(-50%);
+            background-color: #2637d2;
+            border-radius: 4px;
+        }
+
+        .hour-hand {
+            width: 6px;
+            height: 50px;
+            background-color: #333;
+            z-index: 3;
+        }
+
+        .minute-hand {
+            width: 4px;
+            height: 70px;
+            background-color: #666;
+            z-index: 2;
+        }
+
+        .second-hand {
+            width: 2px;
+            height: 80px;
+            background-color: #e74c3c;
+            z-index: 1;
+        }
+
+        .time-border div {
+            position: absolute;
+            font-size: 1.2em;
+            color: #333;
+        }
+        .top { top: 0; left: 50%; transform: translateX(-50%);margin-bottom: 20px;}
+        .bottom { bottom: 0; left: 50%; transform: translateX(-50%);; }
+        .left { left: 0; top: 50%; transform: translateY(-50%) rotate(-90deg);}
+        .right { right: 0; top: 50%; transform: translateY(-50%) rotate(90deg);}
+
+ 
+        .home-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #333;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .home-button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="time-border">
+    <div class="top" id="timeTop">00:00:00</div>
+    <div class="left" id="timeLeft">00:00:00</div>
+    <div class="clock-container">
+        <div class="clock-center"></div>
+        <div class="hand hour-hand" id="hourHand"></div>
+        <div class="hand minute-hand" id="minuteHand"></div>
+        <div class="hand second-hand" id="secondHand"></div>
+    </div>
+    <div class="right" id="timeRight">00:00:00</div>
+    <div class="bottom" id="timeBottom">00:00:00</div>
+</div>
+
+
+<button class="home-button" onclick="goHome()">Home</button>
+
+<script>
+    function updateClock() {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        
+        const timeString = `${hours}:${minutes}:${seconds}`;
+
+   
+        const hourDegree = (hours % 12) * 30 + (minutes / 60) * 30;
+        const minuteDegree = minutes * 6;
+        const secondDegree = seconds * 6;
+
+        document.getElementById("hourHand").style.transform = `rotate(${hourDegree}deg)`;
+        document.getElementById("minuteHand").style.transform = `rotate(${minuteDegree}deg)`;
+        document.getElementById("secondHand").style.transform = `rotate(${secondDegree}deg)`;
+
+        document.getElementById("timeTop").textContent = timeString;
+        document.getElementById("timeLeft").textContent = timeString;
+        document.getElementById("timeRight").textContent = timeString;
+        document.getElementById("timeBottom").textContent = timeString;
+    }
+
+  
+    function goHome() {
+        window.location.href = "https://example.com";
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+</script>
+
+</body>
+</html>

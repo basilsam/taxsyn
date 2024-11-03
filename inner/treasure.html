@@ -28,7 +28,7 @@
             position: absolute;
         }
         .treasure {
-            background-image: url('box.png'); /* URL of the treasure image */
+            background-image: url("treas.jpg");
             background-size: cover;
         }
         #message {
@@ -69,7 +69,7 @@
     }
 
     function createCells() {
-        gameArea.innerHTML = ''; // Clear previous cells
+        gameArea.innerHTML = ''; 
         for (let i = 0; i < 20; i++) {
             for (let j = 0; j < 20; j++) {
                 const cell = document.createElement('div');
@@ -85,9 +85,9 @@
     }
 
     function revealTreasure() {
-        // Locate and reveal the cell where the treasure is hidden
+       
         const treasureCell = document.querySelector(`.cell[style*="left: ${treasureX}px"][style*="top: ${treasureY}px"]`);
-        treasureCell.classList.add('treasure'); // Add treasure image
+        treasureCell.classList.add('treasure');
     }
 
     function makeGuess(x, y) {

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browser Interface</title>
     <style>
-        /* Previous styles remain the same */
+       
         * {
             margin: 0;
             padding: 0;
@@ -14,8 +14,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-            overflow-x: hidden; /* Prevent horizontal scrolling */
-        }
+            overflow-x: hidden; 
 
         .animation-container {
       position: fixed;
@@ -26,11 +25,11 @@
       margin-top: 50px;
     }
 
-    /* Jerry's style */
+   
     .jerry {
       position: absolute;
-      left: -100px; /* Start off-screen */
-      width: 40px; /* Adjust size */
+      left: -100px; 
+      width: 40px; 
       animation: jerryRun 5s linear infinite;
     }
 
@@ -114,7 +113,7 @@
             to { opacity: 0; visibility: hidden; }
         }
 
-        /* Navbar styles remain the same */
+        
         .navbar {
             position: fixed;
             top: 0;
@@ -129,7 +128,6 @@
             z-index: 1001;
         }
 
-        /* Rest of the previous styles remain the same */
         .nav-buttons {
             display: flex;
             gap: 8px;
@@ -288,7 +286,6 @@
             }, 10000);
         });
 
-        // Search bar functionality
         document.querySelector('.search-bar').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 const searchQuery = this.value;
@@ -306,7 +303,7 @@
             }
         });
 
-        // Navigation buttons functionality
+        
         document.querySelector('.nav-buttons').addEventListener('click', function(e) {
             if (e.target.classList.contains('nav-button')) {
                 const buttonText = e.target.textContent;
