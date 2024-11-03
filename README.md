@@ -8,15 +8,15 @@
 
 
 ### Team Members
-- Team Lead: [Name] - [College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Team Lead: Basil Sam Abhraham - CUSAT
+- Member 2: Nandana J S - CUSAT
+- Member 3: Hannah C Shabeer - CUSAT
 
 ### Project Description
-[2-3 lines about what your project does]
+Our project is a virtual mobile phone where you can do some crazy things.In this you can search anything ,play games and can see the date and time but all these comes with a twist.You will definitely have a fun time using this.
 
 ### The Problem (that doesn't exist)
-[What ridiculous problem are you solving?]
+
 
 ### The Solution (that nobody asked for)
 [How are you solving it? Keep it fun!]
@@ -24,7 +24,7 @@
 ## Technical Details
 ### Technologies/Components Used
 For Software:
-- [Languages used]
+- HTML,Java Script
 - [Frameworks used]
 - [Libraries used]
 - [Tools used]
