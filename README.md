@@ -8,9 +8,9 @@
 ### Team Name: Taxsyn
 
 ### Team Members
-- **Team Lead**: Basil Sam Abhraham - CUSAT
+- **Team Lead**: Hannah C Shabeer - CUSAT
 - **Member 2**: Nandana J S - CUSAT
-- **Member 3**: Hannah C Shabeer - CUSAT
+- **Member 3**: Basil Sam Abraham - CUSAT
 
 ### Project Description
 Our project is a virtual mobile phone where you can do some crazy things. In this virtual mobile, you can search for anything, play games, check the date and time, and enjoy some unexpected twists along the way. The experience is designed to bring joy and fun to the user, making it a lighthearted way to spend time.
@@ -83,11 +83,11 @@ Our virtual mobile phone aims to bring happiness and enthusiasm through absurd a
 ## Project Demo
 
 ### Video Demo
-!(documents/video.mp4)
+![video1]
 *A brief description of what the video shows.*
 
 ### Additional Demos
-[Add links to extra demos or resources]
+[introduction video](https://github.com/user-attachments/assets/6a0646a4-7c86-451f-9b6a-5823f73fa7dc)
 
 ---
 
