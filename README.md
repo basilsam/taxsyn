@@ -83,12 +83,12 @@ Our virtual mobile phone aims to bring happiness and enthusiasm through absurd a
 ## Project Demo
 
 ### Video Demo
-[video](https://github.com/user-attachments/assets/2b9a0265-2490-4930-bc97-dfb8de3d07e0)
+[video](https://github.com/user-attachments/assets/e6966dbb-9a03-4029-bc58-30ae3b0339fe)
 
 *Ever tried a phone within a phone? Here’s this Virtual Mobile Phone, where we explore unconventional and playful concepts that serve as a fun way to learn and experiment with new technologies. By simulating a mobile phone in a virtual environment, this project mimics the features and behavior of a smartphone without any real hardware. It offers a lighthearted yet insightful exploration into mobile app development, user interface design, and system emulation. It may not change the world, but it’s a creative exercise in technology experimentation.*
 
 ### Additional Demos
-[introduction video](https://github.com/user-attachments/assets/6a0646a4-7c86-451f-9b6a-5823f73fa7dc)
+[introduction video](https://github.com/user-attachments/assets/da8f3175-e60d-4805-8f4e-f3f9eb73c96d)
 
 ---
 
